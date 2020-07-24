@@ -6,7 +6,8 @@
     "pages/mine/mine",
     "pages/classify/classify",
     "pages/details/details",
-    "pages/product/product"
+    "pages/product/product",
+    "pages/search/search"
   ],
   "subPackages": [],
   "window": {
@@ -41,6 +42,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

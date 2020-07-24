@@ -284,52 +284,46 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _index = _interopRequireDefault(__webpack_require__(/*! ../../utils/api/index.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _index = _interopRequireDefault(__webpack_require__(/*! ../../utils/api/index.js */ 21));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../../utils/config */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var uniSearchBar = function uniSearchBar() {__webpack_require__.e(/*! require.ensure | components/uni-search-bar/uni-search-bar */ "components/uni-search-bar/uni-search-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-search-bar/uni-search-bar.vue */ 88));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
+  components: {
+    uniSearchBar: uniSearchBar },
+
   data: function data() {
     return {
-      topCateInfo: [], //顶部导航一级分类信息
-      bannerInfo: [], //轮播图信息
-
-
-
-
       inputCenter: "center", // 顶部top搜索栏input标签中文本居中变量
       placeholderText: "寻找商品", //顶部top搜索栏input中placeholder中的文本变量
-      topIndex: 0, //顶部标题被选中时的索引
 
-      // topBars: [{ //顶部导航的数据
-      //     name: '推荐',
-      //     id: 'guanzhu'
-      // }, {
-      //     name: '女装',
-      //     id: 'tuijian'
-      // }, {
-      //     name: '鞋包',
-      //     id: 'tiyu'
-      // }, {
-      //     name: '居家',
-      //     id: 'redian'
-      // }, {
-      //     name: '母婴儿童',
-      //     id: 'caijing'
-      // }, {
-      //     name: '美食',
-      //     id: 'yule'
-      // }, {
-      //     name: '男装',
-      //     id: 'junshi'
-      // }, {
-      //     name: '电脑',
-      //     id: 'lishi'
-      // }, {
-      //     name: '内衣',
-      //     id: 'bendi'
-      // }],
-      swipers: [//录播图数据
-      "../../static/index/swiper.jpg",
-      "../../static/index/swiper.jpg",
-      "../../static/index/swiper.jpg"],
+      topCateInfo: [], //顶部导航一级分类信息
+      topCateActiveIndex: 0, //顶部标题被选中时的索引
+      bannerInfo: [], //轮播图信息
+      secKillInfo: [], //秒杀商品信息
+      endTimeObj: { d: '0', h: '00', m: "00", s: '00' }, //秒杀倒计时
+
+      imgSwiper: '', //广告图片 暂用轮播图其一代替
+      imgSwiper1: '', //推广图片 暂用商品图代替
+      imgSwiper2: '', //推广图片 暂用商品图代替
 
       FunNavList: [{ //功能导航数据
         name: "限时抢购",
@@ -352,270 +346,16 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ../../utils/api/inde
         name: "热门推荐" },
 
       {
-        name: "发现好货" },
+        name: "最新好货" },
 
       {
-        name: "只看专场" },
-
-      {
-        name: "只看商品" }],
+        name: "全部商品" }],
 
 
-      tagsIndex: 0, //tag默认选中的索引
-      products: [{ //tag标签对应的数据
-        title: "热门推荐",
-        content: [{
-          yishou: "8000",
-          name: "1阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods1.png",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "1阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "1阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "1阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false }] },
-
-
-      {
-        title: "发现好货",
-        content: [{
-          yishou: "8000",
-          name: "2阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "2阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "2阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "2阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false }] },
-
-
-      {
-        title: "只看专场",
-        content: [{
-          yishou: "8000",
-          name: "3阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "3阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "3阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "3阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false }] },
-
-
-      {
-        title: "只看商品",
-        content: [{
-          yishou: "8000",
-          name: "4阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "4阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "4阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false },
-
-        {
-          yishou: "8000",
-          name: "4阿道夫修护滋养洗发香乳",
-          src: "../../static/index/goods.jpg",
-          lei: "洗发水",
-          detail: "持久留香",
-          tol: "520ml*瓶",
-          type: "旗舰店正品焕新升级版",
-          price: "123.00",
-          pinglun: 3625,
-          id: "11",
-          num: 1,
-          check: false,
-          floatLeft: false }] }] };
-
-
-
-
+      tagsIndex: 0, //tag 默认首页商品列表的索引 0 ：热门  1：最新  2:全部
+      indexGoodsinfo: [], //首页商品列表 全部数据
+      indexGoodsList: [] //首页商品列表： 最新、推荐、所有（ 10 ）的某一组
+    };
 
   },
   onLoad: function onLoad() {
@@ -625,66 +365,160 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ../../utils/api/inde
     return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:case "end":return _context.stop();}}}, _callee);}))();},
   // 挂载完成
   mounted: function mounted() {
-    // 获取顶部一级分类导航信息
-    this._getTopCateInfo();
-    // 获取轮播图信息
-    this._getbanner();
+    this._getTopCateInfo(); // 获取顶部一级分类导航信息
+    this._getbanner(); // 获取轮播图信息
+    this._getSecKillInfo(); //获取秒杀商品信息
+    this._getIndexGoods(); //选项卡商品信息获取
+
   },
   // 自定义函数
   methods: {
+    // 搜索商品
+    inputSearch: function inputSearch(e) {
+      console.log(e.detail);
+      uni.navigateTo({
+        url: '../search/search' });
+
+    },
+
+    // 获取首页 推荐 、最新、所有 商品数据 _getIndexGoods
+    // 注意：图片的地址拼接，只需要处理一次
+    _getIndexGoods: function _getIndexGoods() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var goodsRes;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _index.default._getIndexGoods());case 2:goodsRes = _context2.sent;
+                // console.log(goodsRes,'goodsRes')
+                _this.indexGoodsinfo = goodsRes.data.list || [];
+                // 有两种方式 可以直接使用indexGoodsinfo进行变量 见html部分
+                _this.indexGoodsinfo.forEach(function (obj) {
+                  obj.content.forEach(function (item) {
+                    item.img = _config.default.apiurl + item.img;
+                  });
+                });
+                _this.indexGoodsList = _this.indexGoodsinfo[_this.tagsIndex].content;
+                // 临时处理推广图片
+                _this.imgSwiper1 = _this.indexGoodsList[0];
+                _this.imgSwiper2 = _this.indexGoodsList[1];
+                // console.log(this.imgSwiper1)
+              case 8:case "end":return _context2.stop();}}}, _callee2);}))();},
+
+    // tag标签点击改变
+    activeTagList: function activeTagList(index) {
+      this.tagsIndex = index;
+      this.indexGoodsList = this.indexGoodsinfo[this.tagsIndex].content;
+    },
+
+    // 获取秒杀商品信息
+    _getSecKillInfo: function _getSecKillInfo() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var killRes;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
+                  _index.default._getSecKill());case 2:killRes = _context3.sent;
+                // console.log(killRes, 'resss')
+                killRes.data.list[0].img = _config.default.apiurl + killRes.data.list[0].img;
+                _this2.secKillInfo = killRes.data.list[0];
+                // 处理倒计时
+                _this2._setEndTimes(_this2.secKillInfo.begintime, _this2.secKillInfo.endtime);case 6:case "end":return _context3.stop();}}}, _callee3);}))();
+    },
+
+
+    // 倒计时功能封装
+    _setEndTimes: function _setEndTimes(begintime, endtime) {var _this3 = this;
+      // 验证秒杀开始时间是否过期
+      // 后端api接口已修改 只输出 开始时间 <= 当前时间 <= 结束时间
+      var t = setInterval(function () {
+        if (new Date().getTime() >= parseInt(begintime) && new Date().getTime() <= parseInt(endtime)) {
+          // 计算当前时间 - 结束时间  转成秒
+          var time = Math.abs((new Date().getTime() - parseInt(endtime)) / 1000);
+          // 天 Math.floor
+          var d = parseInt(time / 86400);
+          // 时
+          var h = parseInt(time % 86400 / 3600);
+          // 分
+          var m = parseInt(time % 3600 / 60);
+          // 秒
+          var s = parseInt(time % 60);
+          // 格式化 00 ： 00 ： 00
+          h = h < 10 ? '0' + h : h;
+          m = m < 10 ? '0' + m : m;
+          s = s < 10 ? '0' + s : s;
+
+          _this3.endTimeObj = { d: d, h: h, m: m, s: s };
+        } else {
+          _this3.endTimeObj = { d: '0', h: '00', m: '00', s: '00' };
+          clearInterval(t); //清除定时器
+          _this3.secKillInfo = [];
+          console.log('秒杀过期');
+        }
+      }, 1000);
+    },
+
+    // 跳转总分类页面 判断是否点的最后1个  index == 3
+    _goToClassify: function _goToClassify(index) {
+      if (index === 3) {
+        uni.navigateTo({
+          url: '/pages/classify/classify' });
+
+      }
+    },
+
     // 获取顶部一级分类导航信息	topCateInfo
-    _getTopCateInfo: function _getTopCateInfo() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var infoRes;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
-                  _index.default._getTopCateInfo());case 2:infoRes = _context2.sent;
-                console.log(infoRes.data.list, 'infores');
-                _this.topCateInfo = infoRes.data.list;case 5:case "end":return _context2.stop();}}}, _callee2);}))();
+    _getTopCateInfo: function _getTopCateInfo() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var infoRes;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
+                  _index.default._getTopCateInfo());case 2:infoRes = _context4.sent;
+                // console.log(infoRes.data.list, 'infores');
+                _this4.topCateInfo = infoRes.data.list;case 4:case "end":return _context4.stop();}}}, _callee4);}))();
     },
+
+    // 头部导航 跳转 改变下标
+    _goToProduct: function _goToProduct(id, index) {
+      // console.log(id,index)
+      this.topCateActiveIndex = index;
+      //跳转到列表页
+    },
+
     // 获取轮播图信息		bannerInfo
-    _getbanner: function _getbanner() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var bannerRes;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
-                  _index.default._getbanner());case 2:bannerRes = _context3.sent;
-                console.log(bannerRes, 'res');
-                _this2.bannerInfo = bannerRes.data.list;case 5:case "end":return _context3.stop();}}}, _callee3);}))();
+    _getbanner: function _getbanner() {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var bannerRes;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
+                  _index.default._getbanner());case 2:bannerRes = _context5.sent;
+                // 处理图片链接地址
+                bannerRes.data.list.forEach(function (item) {
+                  item.img = _config.default.apiurl + item.img;
+                });
+                // console.log(bannerRes,'res')
+                _this5.bannerInfo = bannerRes.data.list;
+                _this5.imgSwiper = _this5.bannerInfo[0].img;case 6:case "end":return _context5.stop();}}}, _callee5);}))();
     },
 
 
+    // ===============================================
 
-
-
-    // 搜索栏获取焦点时
+    // 搜索栏获取焦点时 @focus="inputFocus"
     inputFocus: function inputFocus() {
       this.inputCenter = "left";
       this.placeholderText = "";
     },
-    // 搜索栏失去焦点时
+    // 搜索栏失去焦点时 @blur="inputBlur"
     inputBlur: function inputBlur() {
       this.inputCenter = "center";
-      this.placeholderText = "寻找商品";
+      this.placeholderText = "搜索商品";
     },
 
-    // 导航栏点击事件
-    ontabtap: function ontabtap(e) {
-      var index = e.target.dataset.current || e.currentTarget.dataset.current;
-      this.switchTab(index);
-    },
-    switchTab: function switchTab(index) {
-      //当前点击的标题是自己的时候，直接返回
-      if (this.topIndex === index) {
-        return;
-      }
-      //直接更新当前选中的索引
-      this.topIndex = index;
-    },
-    // tag标签点击改变
-    activeTagList: function activeTagList(index) {
-      this.tagsIndex = index;
-    },
+    // // 导航栏点击事件
+    // ontabtap(e) {
+    // 	let index = e.target.dataset.current || e.currentTarget.dataset.current;
+    // 	this.switchTab(index);
+    // },
+    // switchTab(index) {
+    // 	//当前点击的标题是自己的时候，直接返回
+    // 	if (this.topIndex === index) {
+    // 		return;
+    // 	}
+    // 	//直接更新当前选中的索引
+    // 	this.topIndex = index;
+    // },
+
     // 点击直接调到商品分类页
-    toClassify: function toClassify(index) {
-      // index == 3的时候，跳转分类页面
-      if (index != 3) return false;
-      uni.navigateTo({
-        url: '/pages/classify/classify' });
-
-    },
+    // toClassify(index) {
+    // 	// index == 3的时候，跳转分类页面
+    // 	if (index != 3) return false;
+    // 	uni.navigateTo({
+    // 		url: '/pages/classify/classify'
+    // 	});
+    // },
     // 进入商品详情页面
     toDetails: function toDetails(ind, tagsIndex) {
       //ind为当前商品索引，tagsIndex为当前大分类索引

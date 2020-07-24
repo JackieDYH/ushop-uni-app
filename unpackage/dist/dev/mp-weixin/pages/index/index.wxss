@@ -387,172 +387,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* 导入外部的样式文件 */
 page{
 		background: #F1F1F1;
@@ -577,10 +411,12 @@ page{
 }
 .textinput{
 		width: 280rpx;
-		height: 40rpx;
+		height: 55rpx;
+		color: #F26B11;
 		border-radius: 5rpx;
 		background-color: #F1F1F1;
-		font-size: 22rpx;
+		font-size: 30rpx;
+		padding: 0 8rpx;
 }
 .logoView{
 		margin-left: 20rpx;
@@ -639,8 +475,12 @@ page{
 }
 /* 顶部导航结束 end */
 /* swiper轮播图start */
+.swiper-item{
+		height: 100%;
+}
 .swiper-item image{
 		width: 100%;
+		height: 100%;
 }
 /* swiper轮播图end */
 /* 功能导航start */
@@ -721,7 +561,12 @@ page{
 .LimitedTitle {
 		padding: 5rpx 0px;
 		font-size: 28rpx;
-		color: #969696;
+		color: #ff5500;
+		
+		width: 340rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 }
 .LimitTimeAll{
 		display: -webkit-box;
@@ -735,6 +580,7 @@ page{
 		color: #fff;
 		text-align: center;
 		line-height: 50rpx;
+		border-radius: 10rpx;
 }
 .maohao{
 		margin: 0rpx 4rpx;
@@ -742,17 +588,42 @@ page{
 .Seckill {
 		width:100rpx;
 		height:50rpx;
-		background: #fee300;
+		background: #aa5500;
+		font-size: 12px;
 		color: #fff;
 		text-align: center;
 		line-height:50rpx;
-		margin-left: 10rpx;
+		margin-right: 10rpx;
+		border-radius: 10rpx;
 }
 .LimitedgoodsImg {
-		margin-left: 38rpx;
-		/* margin-top: 25rpx; */
+		margin-left: 20rpx;
+		margin-top: 8rpx;
 		width: 300rpx;
 		height: 220rpx;
+}
+.secKill{
+		position: relative;
+}
+.msprice{
+		width: 120rpx;
+		height: 120rpx;
+		border-radius: 50%;
+		position: absolute;
+		bottom: 25rpx;
+		right: 20rpx;
+		color: #fff;
+		text-align: center;
+		font-size: 32rpx;
+		font-weight: bold;
+		line-height: 120rpx;
+		background-color: rgba(240,0,0,.8);
+}
+.zwspNo{
+		text-align: center;
+		color: #F0AD4E;
+		font-size: 40rpx;
+		padding-top: 88rpx;
 }
 /* 推荐部分右侧 */
 /* 热推右侧盒子 */
@@ -784,9 +655,9 @@ page{
 		        flex: 1;
 }
 .Cloth{
-		-webkit-box-flex: 1;
-		-webkit-flex: 1;
-		        flex: 1;
+		-webkit-box-flex: 0.8;
+		-webkit-flex: 0.8;
+		        flex: 0.8;
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: flex;
@@ -798,7 +669,7 @@ page{
 		        align-items: center;
 }
 .Cloth image{
-		width: 140rpx;
+		width: 156rpx;
 		height: 180rpx;
 }
 .BrandNew{
@@ -925,6 +796,8 @@ page{
 		display: flex;
 		border-radius: 10rpx;
 		box-shadow: #C8C7CC 5rpx;
+		
+		overflow: hidden;
 }
 .GoodsImg{
 		width: 220rpx;
@@ -959,6 +832,12 @@ page{
 		-webkit-box-pack: center;
 		-webkit-justify-content: center;
 		        justify-content: center;
+}
+.GoodsCont .GoodConTit{
+		width: 440rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 }
 .GoodsCont view{
 		padding: 8rpx 0rpx;
