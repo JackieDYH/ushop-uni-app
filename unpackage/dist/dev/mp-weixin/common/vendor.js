@@ -760,7 +760,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1696,7 +1696,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 100:
+/***/ 102:
 /*!*********************************************************************!*\
   !*** F:/缓存/code/vxcode/ushop-uni-app/components/uni-icons/icons.js ***!
   \*********************************************************************/
@@ -1799,6 +1799,62 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'closefill': "\uE589",
   'sound': "\uE590",
   'scan': "\uE612" };exports.default = _default;
+
+/***/ }),
+
+/***/ 116:
+/*!*************************************************************!*\
+  !*** F:/缓存/code/vxcode/ushop-uni-app/utils/api/classify.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+var _http = _interopRequireDefault(__webpack_require__(/*! ../http.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 分类页请求
+
+// 获取分类 树型结构
+var _getcatelist = function _getcatelist() {
+  return (0, _http.default)({
+    url: '/getcatelist' });
+
+};var _default =
+
+{
+  _getcatelist: _getcatelist };exports.default = _default;
+
+/***/ }),
+
+/***/ 117:
+/*!***********************************************************!*\
+  !*** F:/缓存/code/vxcode/ushop-uni-app/utils/api/search.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+var _http = _interopRequireDefault(__webpack_require__(/*! ../http.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 分类列表请求 一 二级
+
+// 模糊搜索
+var _getSearchGoods = function _getSearchGoods(searchText) {
+  return (0, _http.default)({
+    url: '/getsearch',
+    data: { searchText: searchText } });
+
+};
+
+// 获取一/二级商品信息
+var _getcategoods = function _getcategoods() {var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return (0, _http.default)({
+    url: "/getcategoods",
+    data: data });
+
+};var _default =
+
+{
+  _getSearchGoods: _getSearchGoods,
+  _getcategoods: _getcategoods };exports.default = _default;
 
 /***/ }),
 
@@ -7402,7 +7458,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7423,14 +7479,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7506,7 +7562,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8672,6 +8728,9 @@ var _getIndexGoods = function _getIndexGoods() {
 
 };var _default =
 
+
+
+
 {
   _getIndexGoods: _getIndexGoods, //选项卡 商品信息获取
   _getSecKill: _getSecKill, //获取秒杀商品信息
@@ -8733,17 +8792,112 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var apiurl = '';
 // uEnvDev 开发环境
 if (true) {
-  apiurl = 'http://localhost:3000';
+  apiurl = 'http://127.0.0.1:3000';
 }
 // uEnvProd	线上环境
-if (false) {}var _default =
+if (false) {}
+
+// 返回统一的图片域名+地址
+var _getImgUrl = function _getImgUrl(img) {
+  return apiurl + img;
+};var _default =
 
 {
-  apiurl: apiurl };exports.default = _default;
+  _getImgUrl: _getImgUrl,
+  apiurl: apiurl //url地址
+};exports.default = _default;
 
 /***/ }),
 
 /***/ 24:
+/*!*****************************************************!*\
+  !*** F:/缓存/code/vxcode/ushop-uni-app/utils/tool.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 工具方法 封装
+
+// =====================交互提示框==========================
+
+// uni.showToast()方法封装 success loading
+var _showToast = function _showToast(_ref) {var _ref$title = _ref.title,title = _ref$title === void 0 ? '提示' : _ref$title,_ref$icon = _ref.icon,icon = _ref$icon === void 0 ? 'none' : _ref$icon,_ref$mask = _ref.mask,mask = _ref$mask === void 0 ? false : _ref$mask,_ref$duration = _ref.duration,duration = _ref$duration === void 0 ? 2000 : _ref$duration;
+  uni.showToast({
+    title: title, icon: icon, mask: mask, duration: duration });
+
+};
+
+// uni.showModal
+var _showModal = function _showModal() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var _options$title =
+  options.title,title = _options$title === void 0 ? '小U君温馨提示' : _options$title,_options$content = options.content,content = _options$content === void 0 ? '确定要删除吗' : _options$content;
+  return new Promise(function (resolve, reject) {
+    uni.showModal({
+      title: title,
+      content: content,
+      success: resolve,
+      fail: reject });
+
+  });
+};
+
+// uni.showLoading 需主动调用 uni.hideLoading 才能关闭提示框
+var _showLoading = function _showLoading() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var _options$title2 =
+  options.title,title = _options$title2 === void 0 ? "加载中..." : _options$title2,_options$mask = options.mask,mask = _options$mask === void 0 ? false : _options$mask;
+  return new Promise(function (resolve, reject) {
+    uni.showLoading({
+      title: title,
+      mask: mask });
+
+  });
+};
+
+// uni.hideLoading() 关闭
+var _hideLoading = function _hideLoading() {
+  return uni.hideLoading();
+};
+
+// =====================本地存储==========================
+
+// 获取本地存储对应key
+var _getStorage = function _getStorage(key) {
+  return uni.getStorageSync(key);
+};
+
+// 设置本地存储对应key
+var _setStorage = function _setStorage(key, value) {
+  return uni.setStorageSync(key, value);
+};
+
+// 清除全部本地存储
+var _clearStorage = function _clearStorage() {
+  uni.clearStorageSync();
+};
+
+// 清除指定key本地存储
+var _removeStorage = function _removeStorage(key) {
+  uni.removeStorageSync(key);
+};var _default =
+
+
+
+
+
+
+{
+  _showToast: _showToast,
+  _showModal: _showModal,
+  _showLoading: _showLoading,
+  _hideLoading: _hideLoading,
+  _getStorage: _getStorage,
+  _setStorage: _setStorage,
+  _clearStorage: _clearStorage,
+  _removeStorage: _removeStorage };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 25:
 /*!*******************************************************************!*\
   !*** F:/缓存/code/vxcode/ushop-uni-app/static/index/xiaohuoban.png ***!
   \*******************************************************************/
@@ -8754,7 +8908,7 @@ module.exports = "data:image/png;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/s
 
 /***/ }),
 
-/***/ 25:
+/***/ 26:
 /*!**********************************************************************!*\
   !*** F:/缓存/code/vxcode/ushop-uni-app/static/index/jifentixicopy.png ***!
   \**********************************************************************/
@@ -8765,7 +8919,7 @@ module.exports = "data:image/png;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/s
 
 /***/ }),
 
-/***/ 26:
+/***/ 27:
 /*!********************************************************************!*\
   !*** F:/缓存/code/vxcode/ushop-uni-app/static/index/lianxiwomen.png ***!
   \********************************************************************/
@@ -8776,7 +8930,7 @@ module.exports = "data:image/png;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/s
 
 /***/ }),
 
-/***/ 27:
+/***/ 28:
 /*!****************************************************************************!*\
   !*** F:/缓存/code/vxcode/ushop-uni-app/static/index/-shangpinfenlei-gai.png ***!
   \****************************************************************************/
@@ -8829,7 +8983,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 60:
+/***/ 61:
 /*!***************************************************************!*\
   !*** F:/缓存/code/vxcode/ushop-uni-app/common/data/classify.js ***!
   \***************************************************************/
@@ -9634,7 +9788,33 @@ classfiy;exports.default = _default;
 
 /***/ }),
 
-/***/ 69:
+/***/ 70:
+/*!************************************************************!*\
+  !*** F:/缓存/code/vxcode/ushop-uni-app/utils/api/details.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+var _http = _interopRequireDefault(__webpack_require__(/*! ../http.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 商品详情页请求
+
+// 获取一条商品信息
+var _getgoodsinfo = function _getgoodsinfo(id) {
+  return (0, _http.default)({
+    url: '/getgoodsinfo',
+    data: { id: id } });
+
+};var _default =
+
+
+{
+  _getgoodsinfo: _getgoodsinfo //获取一条商品详情
+};exports.default = _default;
+
+/***/ }),
+
+/***/ 71:
 /*!************************************************************!*\
   !*** F:/缓存/code/vxcode/ushop-uni-app/utils/ActionImage.js ***!
   \************************************************************/

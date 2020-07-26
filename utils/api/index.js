@@ -29,6 +29,9 @@ const _getIndexGoods = ()=>{
 	})
 }
 
+
+
+
 export default {
 	_getIndexGoods,//选项卡 商品信息获取
 	_getSecKill,//获取秒杀商品信息

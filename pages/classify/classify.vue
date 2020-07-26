@@ -3,28 +3,28 @@
 		<!-- left左侧列表 -->
 		<view class="left">
 			<!-- 循环遍历的 -->
-			<view class="left_list" :class="activeIndex == ind ? 'activeList' : ''" v-for="(item,ind) in itemTitle" :key="ind" @click="activeLeftList(ind)">
-				<label for="">{{ item.text }}</label>
+			<view class="left_list" :class="activeIndex == index ? 'activeList' : ''" v-for="(item,index) in classInfo" :key="index" @click="_activeLeftList(index)">
+				<label for="">{{ item.catename }}</label>
 			</view>
 		</view>
 		<!-- right右侧详细分类商品 -->
 		<view class="right">
 			<!-- 每一个小类 -->
-			<view class="right_list" v-for="(item,ind) in classify[activeIndex].content" :key="ind">
+			<view class="right_list">
 				<view class="tou">
-					<view>{{item.title}}</view>
+					<view>二级分类</view>
 					<!-- activeIndex是大类的索引，ind是小类的索引 -->
-					<label class="span1"  @click="toProduct(activeIndex,ind)">更多></label>
+					<label class="span1">更多></label>
 				</view>
 				<!-- 商品 -->
 				<view class="bottom">
-					<view class="bottom_list" v-for="(val,key) in item.itemecon" :key="key" @click="toDetails(ind,key,activeIndex)">
+					<view class="bottom_list" v-for="(val,key) in classlist" :key="key" @click="_goToList(val.id)">
 						<!-- 每个最多显示6个 -->
 						<view v-if="key < 6">
-							<image :src="val.src" alt="">
+							<image :src="_getImgUrl(val.img)">
 						</view>
 						<view class="title" v-if="key < 6">
-							<span>{{val.name}}</span>
+							<span>{{val.catename}}</span>
 						</view>
 					</view>
 				</view>
@@ -37,52 +37,56 @@
 <script>
 	let classify = require('../../common/data/classify.js')
 	// console.log(classify.default)
+	
+	import api from '../../utils/api/classify.js';
+	import config from '../../utils/config.js';
+	import tool from '../../utils/tool.js';
+	
+	
 	export default {
 		data(){
 			return {
-				activeIndex:0,
-				// 左侧分类列表数据
-				itemTitle: 
-				[
-					{
-						"text": "施华蔻"
-					},
-					{
-						"text": "沙宣"
-					},
-					{
-						"text": "欧莱雅"
-					},
-					{
-						"text": "潘婷"
-					},
-					{
-						"text": "资生堂"
-					},
-					{
-						"text": "阿道夫"
-					},
-					{
-						"text": "卡诗"
-					},
-					{
-						"text": "海飞丝"
-					},
-					{
-						"text": "资生堂"
-					}
-				],
+				classInfo:[],//分类数据
+				classlist:[],//分类数据
+				
+				activeIndex:0,//大分类的下标
+				
 				classify:classify.default,//对应的分类及商品
 			}
 		},
-		onLoad() {
-			
+		// 使用vue生命周期
+		mounted(){
+			this._getcatelist();
 		},
 		methods:{
-			// 切换选中操作
-			activeLeftList(index){
-				this.activeIndex = index
+			_getImgUrl(img){
+				return config.apiurl + img;
 			},
+			
+			// 获取所有分类
+			async _getcatelist(){
+				const cateRes = await api._getcatelist();
+				// console.log(cateRes,11111);
+				this.classInfo = cateRes.data.list;
+				this._activeLeftList(0);
+			},
+			
+			// 切换选中操作
+			_activeLeftList(index){
+				this.activeIndex = index
+				this.classlist = this.classInfo[this.activeIndex].children;
+			},
+			
+			// 跳转到分类列表页 查询所有二级分类
+			_goToList(id){
+				uni.navigateTo({
+					url:`../search/search?sid=${id}`
+				})
+			},
+			
+			
+			
+			
 			// 进入商品详情页面
 			toDetails(ind,key,activeIndex){
 				//ind为当前商品索引，tagsIndex为当前大分类索引

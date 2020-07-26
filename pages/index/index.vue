@@ -65,7 +65,7 @@
 					<view class="maohao">:</view>
 					<label class="LimitTime">{{endTimeObj.s}}</label>
 				</view>
-				<view class="secKill">
+				<view class="secKill" @click="_goToDetail(secKillInfo.id)">
 					<image :src="secKillInfo.img" class="LimitedgoodsImg" alt="">
 					<label class="msprice">￥{{secKillInfo.price}}</label>
 				</view>
@@ -92,7 +92,7 @@
 					</view>
 					<!-- <div> -->
 					<view class="Cloth">
-						<image :src="imgSwiper2.img" alt="">
+						<image :src="imgSwiper2.img" @click="_goToDetail(imgSwiper2.id)" />
 					</view>
 
 					<!-- </div> -->
@@ -105,7 +105,7 @@
 							<label class="HotBottomLeftInfoDetail">只为你选好货</label>
 						</view>
 						<view class="HotBottomLeftImage">
-							<image :src="imgSwiper1.img" mode=""></image>
+							<image :src="imgSwiper1.img" mode="" @click="_goToDetail(imgSwiper1.id)" ></image>
 						</view>
 					</view>
 					<view class="HotBottomRight">
@@ -114,7 +114,7 @@
 							<label class="HotBottomRightInfoDetail">只为你选好货</label>
 						</view>
 						<view class="HotBottomRightImage">
-							<image :src="imgSwiper2.img" mode=""></image>
+							<image :src="imgSwiper2.img" mode="" @click="_goToDetail(imgSwiper2.id)" ></image>
 						</view>
 					</view>
 				</view>
@@ -137,7 +137,7 @@
 			<!-- 标签对应的商品 -->
 			<view class="tags_product">
 				<!-- <view class="product" v-for="(item,index) in indexGoodsinfo[tagsIndex].content" :key="index"> -->
-				<view class="product" v-for="(item,index) in indexGoodsList" :key="index">
+				<view class="product" v-for="(item,index) in indexGoodsList" :key="index" @click="_goToDetail(item.id)">
 					<view class="GoodsLeft">
 						<image class="GoodsImg" :src="item.img" />
 					</view>
@@ -145,7 +145,7 @@
 						<view class="GoodConTit">{{item.goodsname}}</view>
 						<view class="GoodsPrice">￥{{item.price}}</view>
 						<view class="yimai">已售 2000 件</view>
-						<view class="Immed" @click="toDetails(ind,tagsIndex)">立即抢购</view>
+						<view class="Immed">立即抢购</view>
 					</view>
 				</view>
 			</view>
@@ -154,14 +154,12 @@
 </template>
 
 <script>
-	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue';
-	
 	import api from '../../utils/api/index.js';
 	import config from '../../utils/config';
+	import tool from '../../utils/tool';
+	
+	
 	export default {
-		components:{
-			uniSearchBar
-		},
 		data() {
 			return {
 				inputCenter: "center", // 顶部top搜索栏input标签中文本居中变量
@@ -225,12 +223,26 @@
 		},
 		// 自定义函数
 		methods: {
+			
+			// 跳转商品详情页
+			_goToDetail(id){
+				uni.navigateTo({
+					url:`../details/details?id=${id}`
+				})
+			},
+			
 			// 搜索商品
 			inputSearch(e){
-				console.log(e.detail)
-				uni.navigateTo({
-					url:'../search/search'
-				})
+				// console.log(e.detail)
+				let text = e.detail.value.trim();
+				if(text == ''){
+					tool._showToast({title:"不能为空",icon:"loading"})
+				}else{
+					// console.log(e.detail)
+					uni.navigateTo({
+						url:`../search/search?searchText=${text}`
+					})
+				}
 			},
 			
 			// 获取首页 推荐 、最新、所有 商品数据 _getIndexGoods
@@ -321,6 +333,9 @@
 				// console.log(id,index)
 				this.topCateActiveIndex = index
 				//跳转到列表页
+				uni.navigateTo({
+					url:`../search/search?fid=${id}`
+				})
 			},
 
 			// 获取轮播图信息		bannerInfo
@@ -335,9 +350,6 @@
 				this.imgSwiper = this.bannerInfo[0].img
 			},
 
-
-			// ===============================================
-
 			// 搜索栏获取焦点时 @focus="inputFocus"
 			inputFocus() {
 				this.inputCenter = "left"
@@ -348,40 +360,6 @@
 				this.inputCenter = "center"
 				this.placeholderText = "搜索商品"
 			},
-
-			// // 导航栏点击事件
-			// ontabtap(e) {
-			// 	let index = e.target.dataset.current || e.currentTarget.dataset.current;
-			// 	this.switchTab(index);
-			// },
-			// switchTab(index) {
-			// 	//当前点击的标题是自己的时候，直接返回
-			// 	if (this.topIndex === index) {
-			// 		return;
-			// 	}
-			// 	//直接更新当前选中的索引
-			// 	this.topIndex = index;
-			// },
-			
-			// 点击直接调到商品分类页
-			// toClassify(index) {
-			// 	// index == 3的时候，跳转分类页面
-			// 	if (index != 3) return false;
-			// 	uni.navigateTo({
-			// 		url: '/pages/classify/classify'
-			// 	});
-			// },
-			// 进入商品详情页面
-			toDetails(ind, tagsIndex) {
-				//ind为当前商品索引，tagsIndex为当前大分类索引
-				//1.获取当前立即购买的商品信息
-				let product = this.products[tagsIndex].content[ind];
-				// console.log(product)
-				//将获取到的数据传递到商品详情页面
-				uni.navigateTo({
-					url: "/pages/details/details?product=" + encodeURIComponent(JSON.stringify(product))
-				})
-			}
 		}
 	}
 </script>

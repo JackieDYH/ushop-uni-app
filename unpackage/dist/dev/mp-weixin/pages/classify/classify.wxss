@@ -109,6 +109,10 @@
 
 
 
+
+
+
+
 /* 导入外部的样式文件 */
 .container{
 	display: -webkit-box;
@@ -128,6 +132,7 @@
 	text-align: center;
 	line-height: 80rpx;
 	margin-top: 40rpx;
+	border-left: 2px solid transparent;
 }
 /* 右侧 */
 .right_list{

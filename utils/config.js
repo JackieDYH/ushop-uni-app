@@ -3,7 +3,7 @@
 let apiurl = '';
 // uEnvDev 开发环境
 if (process.env.NODE_ENV === 'development') {
-    apiurl = 'http://localhost:3000'
+    apiurl = 'http://127.0.0.1:3000'
 }
 // uEnvProd	线上环境
 if (process.env.NODE_ENV === 'production') {
@@ -11,6 +11,12 @@ if (process.env.NODE_ENV === 'production') {
 	apiurl = 'http://api.xiaoushop.com'
 }
 
+// 返回统一的图片域名+地址
+const _getImgUrl = (img)=>{
+	return apiurl + img;
+}
+
 export default {
-	apiurl,
+	_getImgUrl,
+	apiurl,//url地址
 }

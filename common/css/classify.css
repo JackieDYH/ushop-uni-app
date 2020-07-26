@@ -16,6 +16,7 @@
 	text-align: center;
 	line-height: 80rpx;
 	margin-top: 40rpx;
+	border-left: 2px solid transparent;
 }
 
 /* 右侧 */

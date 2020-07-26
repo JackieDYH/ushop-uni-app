@@ -107,8 +107,13 @@ page{
 .threed3i1,.threed3i2{
 	color: #fff;
 	background: #e1e1e1;
-	padding: 20rpx 30rpx;
+	padding: 10rpx 18rpx;
 	margin-left:20rpx ;
+	font-size: 20rpx;
+}
+
+.specsactive{
+	background-color: #AA5500;
 }
 
 /* 商品详情 */
