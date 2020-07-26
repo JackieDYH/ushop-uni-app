@@ -1,1 +1,0 @@
-<view><view class="search"><uni-icon vue-id="1c037ce0-1" type bind:__l="__l"></uni-icon><input type="text" value="" placeholder="搜索商品"/></view></view>
