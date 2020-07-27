@@ -17,8 +17,10 @@
 					<label class="span1">更多></label>
 				</view>
 				<!-- 商品 -->
-				<view class="bottom">
-					<view class="bottom_list" v-for="(val,key) in classlist" :key="key" @click="_goToList(val.id)">
+				<view class="bottom" v-if="classInfo.length!==0">
+					<!-- <view class="bottom_list" v-for="(val,key) in classlist" :key="key" @click="_goToList(val.id)"> -->
+					<!-- 第二种方式 -->
+					<view class="bottom_list" v-for="(val,key) in classInfo[activeIndex].children" :key="key" @click="_goToList(val.id)">
 						<!-- 每个最多显示6个 -->
 						<view v-if="key < 6">
 							<image :src="_getImgUrl(val.img)">
@@ -47,7 +49,7 @@
 		data(){
 			return {
 				classInfo:[],//分类数据
-				classlist:[],//分类数据
+				classlist:[],//分类数据 第一中方式
 				
 				activeIndex:0,//大分类的下标
 				
@@ -68,6 +70,17 @@
 				const cateRes = await api._getcatelist();
 				// console.log(cateRes,11111);
 				this.classInfo = cateRes.data.list;
+				
+				// 处理图片链接 第二种方式
+				// cateRes.data.list.forEach(item=>{
+				// 	 //有些分类没有二级分类，所以要做一个判断
+				// 	 item.children = item.children ? item.children : []
+					 
+				// 	 item.children.forEach(item=>{
+				// 		 item.img = config.apiurl + item.img
+				// 	 })
+				// })
+				
 				this._activeLeftList(0);
 			},
 			

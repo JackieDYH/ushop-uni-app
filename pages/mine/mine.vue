@@ -7,8 +7,8 @@
 					<image src="../../static/mine/timg.jpg" mode=""></image>
 				</view>
 				<view class="mineTop_left_info">
-					<label for="" style="color: #fff;">小U</label>
-					<label for="">V1</label>
+					<label for="" style="color: #fff;">{{userInfo.nickname}}</label>
+					<label for="">{{userInfo.phone}}</label>
 				</view>		
 			</view>
 			<view class="mineTop_right">
@@ -43,9 +43,12 @@
 </template>
 
 <script>
+	import tool from '../../utils/tool.js';
+	
 	export default {
 		data(){
 			return {
+				userInfo:'',//用户信息
 				// 订单状态信息
 				orderList: [{
 					name: "全部订单",
@@ -83,6 +86,19 @@
 					icon: "../../static/mine/xiaohuoban.png"
 				  }
 				],
+			}
+		},
+		mounted() {
+			this._userInfo();
+		},
+		methods:{
+			// 处理用户数据
+			_userInfo(){
+				const userInfo = tool._getStorage("userInfo");
+				// 手机号加*号
+				let reg=/(\d{3})\d{4}(\d{4})/;
+				userInfo.phone = userInfo.phone.replace(reg, "$1****$2");
+				this.userInfo = userInfo;
 			}
 		},
 		onLoad() {

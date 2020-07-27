@@ -32,8 +32,14 @@
 		components: {uniSearchBar},
 		data() {
 			return {
+				type:0,//请求类型
+				page:1,//页码
+				size:8,//几天数据
+				isNoMore:true,//判断是否还要数据
+				
+				searVal:'',//搜索关键词
 				placeText:'',//搜索历史关键词
-				searchGoodsList:[],//搜索到的商品
+				searchGoodsList:[],//商品列表
 			}
 		},
 		mounted(){
@@ -41,22 +47,26 @@
 			// 首页直接搜索
 			if(this.$mp.query.searchText){
 				tool._showLoading();
+				this.type = 0;//搜索
 				
 				const { searchText } = this.$mp.query;
 				this.placeText = searchText;
-				this._search(searchText)
+				this.searVal = searchText;
+				this._search()
 			}
 			
 			// 跳转的一级分类列表
 			if(this.$mp.query.fid){
 				tool._showLoading();
-				this._getcategoods({fid:this.$mp.query.fid});
+				this.type = 1;//一级分类请求
+				this._getcategoods({fid:this.$mp.query.fid,page:this.page,size:this.size});
 			}
 			
 			// 跳转的二级分类列表
 			if(this.$mp.query.sid){
 				tool._showLoading();
-				this._getcategoods({sid:this.$mp.query.sid});
+				this.type = 2;//二级分类请求
+				this._getcategoods({sid:this.$mp.query.sid,page:this.page,size:this.size});
 			}
 		},
 		methods:{
@@ -65,10 +75,17 @@
 			async _getcategoods(data={}){
 				try{
 					const cateRes = await api._getcategoods(data);
-					cateRes.data.list.forEach(item=>{
+					
+					// 判断是否还要数据
+					if(cateRes.data.list[1].length < this.size){
+						this.isNoMore = false;
+						tool._showToast({title:'到底啦...'})
+					}
+					
+					cateRes.data.list[1].forEach(item=>{
 						item.img = config.apiurl + item.img;
 					});
-					this.searchGoodsList = cateRes.data.list;
+					this.searchGoodsList = this.searchGoodsList.concat(cateRes.data.list[1]);
 					tool._hideLoading();
 				}catch(err){
 					tool._hideLoading();
@@ -86,30 +103,55 @@
 			// 搜索页面 搜索功能
 			_getsearch(e){
 				this.placeText = '';
+				this.searchGoodsList = [];
+				this.isNoMore = true;
+				this.page = 1;
 				if(!e.value.trim()){
 					tool._showToast({title:"关键词不能为空",icon:"loading"})
 					return;
 				}
 				tool._showLoading();
-				
-				this._search(e.value);
+				this.searVal = e.value;
+				this._search();
 			},
 			
 			//搜索页搜索数据
-			async _search(t){
+			async _search(){
 				try{
-					const searchRes = await api._getSearchGoods(t);
+					const searchRes = await api._getSearchGoods(this.searVal,this.size,this.page);
+					
+					// 判断是否还要数据
+					if(searchRes.data.list.length < this.size){
+						this.isNoMore = false;
+						tool._showToast({title:'到底啦...'})
+					}
+					
 					searchRes.data.list.forEach(item=>{
 						item.img = config.apiurl + item.img;
 					});
 					// console.log(searchRes,'searchRes')
-					this.searchGoodsList = searchRes.data.list;
+					this.searchGoodsList = this.searchGoodsList.concat(searchRes.data.list);
 					tool._hideLoading();
 				}catch(err){
 					tool._hideLoading();
 					console.log(err,'搜索出错')
 				}
 			},
+		},
+		onReachBottom(){
+			if(this.isNoMore && this.type==0){
+				this.page++;
+				this._search();
+			}
+			
+			if(this.isNoMore && this.type==1){
+				this.page++;
+				this._getcategoods({fid:this.$mp.query.fid,page:this.page,size:this.size});
+			}
+			if(this.isNoMore && this.type==2){
+				this.page++;
+				this._getcategoods({fid:this.$mp.query.sid,page:this.page,size:this.size});
+			}
 		}
 		
 		

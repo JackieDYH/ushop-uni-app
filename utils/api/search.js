@@ -2,14 +2,14 @@
 import http from '../http.js';
 
 // 模糊搜索
-const _getSearchGoods = (searchText)=>{
+const _getSearchGoods = (searchText,size,page)=>{
 	return http({
 		url:'/getsearch',
-		data:{searchText}
+		data:{searchText,size,page}
 	})
 }
 
-// 获取一/二级商品信息
+// 获取一/二级商品信息 分页版
 const _getcategoods = (data={})=>{
 	return http({
 		url:"/getcategoods",

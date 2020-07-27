@@ -24,9 +24,9 @@
 			<view class="changeNum">
 				<view class="num">购买数量</view>
 				<view class="action">
-				  <label @click="dux()" class="jian">-</label>
-				  <label class="zhi">10</label>
-				  <label @click="add()" class="jia">+</label>
+				  <label @click="down" class="jian">-</label>
+				  <label class="zhi">{{nums}}</label>
+				  <label @click="add" class="jia">+</label>
 				</view>
 			</view>
 			<!-- 商品属性 -->
@@ -43,9 +43,9 @@
 		<!-- 商品详情 -->
 		 <view class="productDetail">
 			<view class="productDetailTitle">商品详情</view>
-			<!-- 需要处理图片自适应问题 -->
-			<!-- <image :src="productDetailImage.detailImage" @load="autoImage" :style="{width:autoWidth+'px',height:autoHeight+'px'}" /> -->
 			<view class="text" v-html="goodInfo.description"></view>
+			<!-- 富文本显示 二者都可以 -->
+			<!-- <rich-text :nodes="goodInfo.description"></rich-text> -->
 		</view>
 		
 		<view class="productEval">
@@ -61,7 +61,7 @@
 		</view>
 		<!-- 底部按钮 -->
 		<view class="foot">
-			<button class="footbtn1" @click="storage">加入购物车</button>
+			<button class="footbtn1" @click="_addCart">加入购物车</button>
 			<button class="footbtn2" @click="storage">立即购买</button>
 		</view>
 	</view>
@@ -72,9 +72,12 @@
 	let actionimage = require('../../utils/ActionImage.js');
 	
 	import api from '../../utils/api/details.js';
+	import api1 from '../../utils/api/login.js';
+	
 	import config from '../../utils/config.js';
 	import tool from '../../utils/tool.js';
 	
+	let app =getApp();//获取app实例
 	
 	export default {
 		data() {
@@ -82,12 +85,10 @@
 				goodInfo:[],//商品详情
 				specsattr:[],//商品属性列表
 				specsIndex:0,//属性列表下标
+				nums:1,//商品数量
 				
 				
 				product:{},
-				productDetailImage:{
-					detailImage:"../../static/detail/2.jpg"
-				},
 				// 设置自适应宽高
 				autoWidth:"",
 				autoHeight:"",
@@ -115,7 +116,8 @@
 					this.goodInfo = goodInfoRes.data.list[0];
 					console.log(this.goodInfo,'goodInfo')
 					
-					// 格式化商品属性 specsattr
+					// 格式化商品属性 specsattr 改变原数据
+					// this.goodInfo.specsattr = this.goodInfo.specsattr.split(',');
 					this.specsattr = this.goodInfo.specsattr.split(',');
 					// console.log(this.specsattr)
 					tool._hideLoading();
@@ -125,8 +127,69 @@
 				}
 			},
 			
+			// 加入购物车
+			async _addCart(){
+				// 获取token 判断用户登录是否过期
+				const token = app.globalData.authorization;
+				if(!token){
+					tool._showToast({
+						title:'请先登录...',
+						icon:"loading"
+					});
+					setTimeout(()=>{
+						uni.navigateTo({
+							url:'../send/send'
+						})
+					},2000)
+					return;
+				}
+				
+				/*
+				post请求
+				 参数名说明uid用户编号，
+				 必填项goodsid商品编号，
+				 必填项num数量，
+				 必填项authorization  header头中需要添加token后台验证条件
+				 */
+				const { uid,authorization } = app.globalData;
+				// 处理属性数据
+				const attribute = this.goodInfo.specsname +','+ this.specsattr[this.specsIndex];
+				try{
+					const addRes = await api1._addCart({
+						data:{
+							uid,
+							goodsid:this.goodInfo.id,
+							attribute,
+							num:this.nums
+						},
+						token:authorization
+					})
+					
+					console.log(addRes,'添加购物车成功')
+					
+					
+				}catch(err){
+					console.log(err,'添加到购物车出错')
+				}
+				
+				
+			},
 			
 			
+			
+			// 购买数量减少
+			down(){
+				if (this.nums <= 1) {
+				  this.nums = 1;
+				  tool._showToast({title:'数量不能小于1'});
+				} else {
+				  this.nums;
+				}
+			},
+			// 购买数量添加
+			add(){
+				this.nums++;
+			},
 			
 			//处理图片自适应方法
 			autoImage(e){
@@ -135,18 +198,9 @@
 				this.autoHeight = auto.autoHeight;
 				this.autoWidth = auto.autoWidth;
 			},
-			// 购买数量减少
-			dux(){
-				if (this.product.num <= 1) {
-				  this.product.num = 1
-				} else {
-				  this.product.num--
-				}
-			},
-			// 购买数量添加
-			add(){
-				this.product.num++;
-			},
+			
+			
+			
 			 // 点击加入购物车本地存储
 			storage() {
 				// // 判断本地购物车是否有该商品
