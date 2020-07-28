@@ -22,7 +22,11 @@ page{
 }
 
 .detailInfoName{
+	width: 86%;
 	font-size: 36rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .detailInfoPrice{

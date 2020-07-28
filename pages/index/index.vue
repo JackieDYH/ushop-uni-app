@@ -65,7 +65,7 @@
 					<view class="maohao">:</view>
 					<label class="LimitTime">{{endTimeObj.s}}</label>
 				</view>
-				<view class="secKill" @click="_goToDetail(secKillInfo.id)">
+				<view class="secKill" @click="_goToDetail(secKillInfo.goodsid)">
 					<image :src="secKillInfo.img" class="LimitedgoodsImg" alt="">
 					<label class="msprice">￥{{secKillInfo.price}}</label>
 				</view>

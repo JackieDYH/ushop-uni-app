@@ -48,6 +48,13 @@
 	flex-direction: column;
 }
 
+.cartInfo_info .uni-label-pointer{
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .cartInfo_switch{
 	width: 90rpx;
 }
@@ -118,7 +125,7 @@
 }
 
 .footd3{
-	width:220rpx;
+	width:240rpx;
 	height: 100%;
 	background: #F26B11;
 	color: #fff;

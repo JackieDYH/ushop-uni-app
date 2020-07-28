@@ -99,6 +99,14 @@ page{
 	align-items: center;
 }
 
+.carts_name  view:nth-of-type(1){
+	color: #DD524D;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .carts_name  view{
 	margin-top: 10rpx;
 	width: 390rpx;

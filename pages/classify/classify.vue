@@ -37,7 +37,7 @@
 </template>
 
 <script>
-	let classify = require('../../common/data/classify.js')
+	// let classify = require('../../common/data/classify.js')
 	// console.log(classify.default)
 	
 	import api from '../../utils/api/classify.js';
@@ -53,7 +53,7 @@
 				
 				activeIndex:0,//大分类的下标
 				
-				classify:classify.default,//对应的分类及商品
+				// classify:classify.default,//对应的分类及商品
 			}
 		},
 		// 使用vue生命周期

@@ -61,6 +61,7 @@
 		</view>
 		<!-- 底部按钮 -->
 		<view class="foot">
+			<!-- <image style="width: 100rpx;height: auto;background-color: #eee;" src="../../static/tabBar/Agouwuchekong.png" mode="widthFix"></image> -->
 			<button class="footbtn1" @click="_addCart">加入购物车</button>
 			<button class="footbtn2" @click="storage">立即购买</button>
 		</view>
@@ -166,6 +167,22 @@
 					})
 					
 					console.log(addRes,'添加购物车成功')
+					if(addRes.data.code == 200){
+						tool._showToast({
+							title:addRes.data.msg,
+							icon:'success'
+						})
+						setTimeout(()=>{
+							uni.switchTab({
+								url:'../cart/cart'
+							})
+						},2000)
+					}else{
+						tool._showToast({
+							title:addRes.data.msg,
+							icon:'loading'
+						})
+					}
 					
 					
 				}catch(err){
@@ -183,7 +200,7 @@
 				  this.nums = 1;
 				  tool._showToast({title:'数量不能小于1'});
 				} else {
-				  this.nums;
+				  this.nums--;
 				}
 			},
 			// 购买数量添加

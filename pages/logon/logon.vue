@@ -1,6 +1,22 @@
 <template>
 	<view class="box">
 		<view class="row">
+			<text>用户名</text>
+			<input type="text" v-model.trim="username" maxlength="26"/>
+		</view>
+		<view class="row">
+			<view class="send">
+				<text>密码</text>
+			</view>
+			<input type="password" v-model.trim="pwd" placeholder="- - - - - - - -" maxlength="16" />
+		</view>
+		<view class="row">
+			<view class="send">
+				<text>确认密码</text>
+			</view>
+			<input type="password" v-model.trim="pwd1" @blur="_pwdyz" placeholder="- - - - - - - -" maxlength="16" />
+		</view>
+		<view class="row">
 			<text>手机号</text>
 			<input type="text" v-model.trim="phone" maxlength="11"/>
 		</view>
@@ -9,12 +25,12 @@
 				<text>验证码</text>
 				<text @click="_getSmsCode">{{djsStr}}</text>
 			</view>
-			<input type="text" v-model.trim="code" placeholder="- - - -" maxlength="4" />
+			<input type="text" v-model.trim="code" @blur="_codeyz" placeholder="- - - -" maxlength="4" />
 		</view>
 		<view class="row">
-			<text style="font-size: 23rpx;">收不到验证码？试试 <text style="color:#00BB00;font-size: 23rpx;" @click="_goToRegister"> 账号密码登录</text></text>
+			<text style="font-size: 23rpx;">已有账号？试试 <text style="color:#00BB00;font-size: 23rpx;" @click="_goToRegister"> 账号密码登录</text> / <text style="color:#059abb;font-size: 23rpx;" @click="_goToSend"> 验证码登录</text></text>
 			<!--   -->
-			<button  :disabled="code.length !== 4" @click="_doLogin" type="primary" style="width: 90%;border-radius: 80rpx;margin-top: 50rpx;">登录</button>
+			<button :disabled="!(ispwd && iscode)" @click="_doLogin" type="primary" style="width: 90%;border-radius: 80rpx;margin-top: 50rpx;">登录</button>
 		</view>
 		<view class="row">
 			<text style="color: #006699;text-align: center;" >通过微信授权登录</text>
@@ -32,19 +48,52 @@
 	export default {
 		data() {
 			return {
-				code:'',
+				username:'',
+				pwd:'',
+				pwd1:'',
+				code:'',//用户输入的验证码
 				codes:'',//获取到的验证码
 				phone:'',
-				// isLogin:true,//登录按钮，默认禁用，
 				djsStr:'获取验证码',
+				ispwd:false,//是否可以登录
+				iscode:false,//是否可以登录
 				buffer:true,//可以获取验证码
 			}
 			
 		},
 		methods: {
+			// 验证密码是否一致 ispwd
+			_pwdyz(){
+				if(this.pwd !== this.pwd1){
+					tool._showToast({
+						title:"密码不一致"
+					})
+					this.ispwd=false;
+				}else{
+					this.ispwd=true;
+				}
+			},
+			// 验证码验证
+			_codeyz(){
+				if(this.code !== String(this.codes)){
+					tool._showToast({
+						title:"验证码错误"
+					})
+					this.iscode=false;
+				}else{
+					this.iscode=true;
+				}
+			},
+			
+			// 跳转页面
 			_goToRegister(){
 				uni.navigateTo({
 					url:'../register/register'
+				})
+			},
+			_goToSend(){
+				uni.navigateTo({
+					url:'../send/send'
 				})
 			},
 			// 2 点击登录登录按钮，进行匹配用户输入的验证码是不是和你手机上接口的验证码是否正确
@@ -54,24 +103,32 @@
 						tool._showToast({
 							title:"验证码错误"
 						})
+						this.iscode=false;
 						return false;
 					}
 					
-					const loginInfo = await api._login(this.phone);
+					if(this.pwd !== this.pwd1){
+						tool._showToast({
+							title:"密码不一致"
+						})
+						this.ispwd=false;
+						return false;
+					}
+					
+					const loginInfo = await api._register(this.phone,this.username,this.pwd);
 					console.log(loginInfo,'logininfo')
 					if(loginInfo.data.code != 200){
-						tool._showToast({title:'登录失败'});
+						tool._showToast({title:loginInfo.data.msg});
 						return false;
+					}else{
+						tool._showToast({title:loginInfo.data.msg});
+						// 跳转到个人中心
+						setTimeout(()=>{
+							uni.navigateTo({
+								url:'../register/register'
+							})
+						},2000)
 					}
-					//存储token和uid到缓存中 同时把appvue和globaldata中的token更新一下，以供其它地方使用
-					tool._setStorage("userInfo",loginInfo.data.list);
-					app.globalData.authorization = loginInfo.data.list.token;
-					app.globalData.uid = loginInfo.data.list.uid;
-					// 跳转到个人中心
-					uni.switchTab({
-						url:'../mine/mine'
-					})
-					
 				}catch(err){
 					console.log(err,'登录错误');
 				}
